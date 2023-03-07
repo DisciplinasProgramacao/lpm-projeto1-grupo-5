@@ -1,5 +1,7 @@
 package gestaoEstoque;
 
+import java.text.DecimalFormat;
+
 public class Produto {
 
 	private String descricao;
@@ -117,20 +119,20 @@ public class Produto {
 	*/
 	public String vender(int quantidade) {
 
+		DecimalFormat formatter = new DecimalFormat("#.00");
 
-        if (quantidade > this.quantidadeAtual) {
+		if (quantidade > this.quantidadeAtual) {
 			String semEstoque = "Quantidade insuficiente em estoque";
-            System.out.println(semEstoque);
-            return semEstoque;
-        }
-        this.quantidadeAtual -= quantidade;
-        double valorVenda = quantidade * this.precoDeVenda;
-        this.valorArrecadado += valorVenda;
-		String sucesso = "\n\nVenda realizada com sucesso! Valor arrecadado: R$" + valorVenda;
-        System.out.println(sucesso);
+			System.out.println(semEstoque);
+			return semEstoque;
+		}
+		this.quantidadeAtual -= quantidade;
+		double valorVenda = quantidade * this.precoDeVenda;
+		this.valorArrecadado += valorVenda;
+		String sucesso = "\n\nVenda realizada com sucesso! Valor arrecadado: R$" + formatter.format(valorVenda);
+		System.out.println(sucesso);
 		return sucesso;
-    }
-
+	}
     /**
 	 * This function adds the quantity of the item purchased to the current quantity of the item and
 	 * adds the cost of the item purchased to the current cost of the item

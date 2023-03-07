@@ -52,7 +52,7 @@ public class ProdutoTest {
 
         assertEquals(22, produto.getQuantidadeAtual());
         assertEquals(54.87, produto.getValorArrecadado());
-        assertTrue(venda.contains("Venda realizada com sucesso! Valor arrecadado: R$54.87"));
+        assertTrue(venda.contains("Venda realizada com sucesso! Valor arrecadado: R$54,87"));
     }
 
     @Test
