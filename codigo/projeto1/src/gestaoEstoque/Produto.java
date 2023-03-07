@@ -7,6 +7,7 @@ public class Produto {
 	private double precoDeVenda;
 	private int quantidadeAtual;
     private int quantidadeMinima;
+
 	private double margemLucro;
 	private double valorImpostos;
 
@@ -68,7 +69,11 @@ public class Produto {
 	public double getCustoAquisicao() {
         return custoAquisicao;
     }
-	
+
+	public void setQuantidadeAtual(int quantidadeAtual) {
+		this.quantidadeAtual = quantidadeAtual;
+	}
+
 	/**
 	 * Validar se a descricao possui no minimo 3 caracteres
 	*/
@@ -110,15 +115,20 @@ public class Produto {
 	 * 
 	 * @param quantidade a quantidade do produto que está sendo vendido
 	*/
-	public void vender(int quantidade) {
+	public String vender(int quantidade) {
+
+
         if (quantidade > this.quantidadeAtual) {
-            System.out.println("Quantidade insuficiente em estoque");
-            return;
+			String semEstoque = "Quantidade insuficiente em estoque";
+            System.out.println(semEstoque);
+            return semEstoque;
         }
         this.quantidadeAtual -= quantidade;
         double valorVenda = quantidade * this.precoDeVenda;
         this.valorArrecadado += valorVenda;
-        System.out.printf("\n\nVenda realizada com sucesso! Valor arrecadado: R$%.2f\n", valorVenda);
+		String sucesso = "\n\nVenda realizada com sucesso! Valor arrecadado: R$" + valorVenda;
+        System.out.println(sucesso);
+		return sucesso;
     }
 
     /**
