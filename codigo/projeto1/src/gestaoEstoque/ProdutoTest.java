@@ -8,64 +8,54 @@ import org.junit.jupiter.api.Test;
 public class ProdutoTest {
 
     Produto produto;
+
     @BeforeEach
-    public void prepare(){
-        produto = new Produto(
-                "pão de forma",
-                10,
-                25,
-                5
-        );
+    public void prepare() {
+        produto = new Produto("pão de forma", 10, 4, 5);
     }
 
     @Test
-    public void deveVerificarAMargemDeLucro(){
-        produto.calculaMargemLucro();
-        assertEquals(5.5, produto.getMargemLucro());
+    public void deveVerificarAMargemDeLucro() {
+        assertEquals(5.5, produto.calculaMargemLucro());
     }
 
     @Test
-    public void deveVerificarOValorDoImposto(){
-        produto.calculaValorImpostos();
-        assertEquals(2.79, produto.getValorImposto());
+    public void deveVerificarOValorDoImposto() {
+        assertEquals(2.79, produto.calculaValorImpostos());
     }
 
     @Test
-    public void deveVerificarOPrecoDeVenda(){
+    public void deveVerificarOPrecoDeVenda() {
         produto.calculaMargemLucro();
         produto.calculaValorImpostos();
-        produto.calculaPrecoDeVenda();
 
-        assertEquals(18.29, produto.getPrecoVenda());
+        assertEquals(18.29, produto.calculaPrecoDeVenda());
     }
 
     @Test
-    public void deveVerificarVendaComEstoqueInsuficiente(){
-        String venda = produto.vender(30);
-        assertTrue(venda.contains("Quantidade insuficiente em estoque"));
+    public void deveVerificarVendaComEstoqueInsuficiente() {
+        assertEquals(0, produto.vender(30));
     }
 
     @Test
-    public void deveVerificarVenda(){
-        String venda = produto.vender(3);
-        produto.calculaPrecoDeVenda();
-
-        assertEquals(22, produto.getQuantidadeAtual());
-        assertEquals(54.87, produto.getValorArrecadado());
-        assertTrue(venda.contains("Venda realizada com sucesso! Valor arrecadado: R$54,87"));
+    public void deveVerificarVenda() {
+        assertEquals(54.87, produto.vender(3));
+        assertEquals(1, produto.getQuantidadeAtual());
     }
 
     @Test
-    public void deveVerificarCompra(){
-        produto.comprar(10, 4);
-
-        assertEquals(35, produto.getQuantidadeAtual());
-        assertEquals(40, produto.getCustoAquisicao());
+    public void deveVerificarCompra() {
+        assertEquals(9, produto.comprar(5));
     }
 
     @Test
-    public void deveVerificarOEstoque(){
-        produto.setQuantidadeAtual(4);
-        assertTrue(produto.verificarEstoque());
+    public void deveVerificarOEstoque() {
+        assertTrue(produto.isQuantidadeMinima());
+    }
+
+    @Test
+    public void deveAtualizarPrecoDeCusto( ) {
+        produto.atualizarPrecoCusto(25);
+        assertEquals(25, produto.getPrecoCusto());
     }
 }
