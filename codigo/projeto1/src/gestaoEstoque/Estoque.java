@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Estoque {
-
+    private double valorTotalReposicao;
+    private double valorTotalVendido;
     private List<Produto> listaProdutos;
 
     /**
@@ -12,7 +13,7 @@ public class Estoque {
      */
     public Estoque(int qtdProdutos) {
         if (qtdProdutos >= 0)
-            listaProdutos = new ArrayList<Produto>(qtdProdutos);
+            listaProdutos = new ArrayList<>(qtdProdutos);
     }
 
     /**
@@ -67,7 +68,7 @@ public class Estoque {
      * @return Retorna uma lista de produtos com estoque abaixo do mínimo
      */
     public List<Produto> produtosEstoqueAbaixoMin() {
-        List<Produto> listaProdutosQtdMin = new ArrayList<Produto>();
+        List<Produto> listaProdutosQtdMin = new ArrayList<>();
         if (!estoqueVazio()) {
             for (Produto produto : listaProdutos) {
                 if (produto.isQuantidadeMinima())
@@ -81,7 +82,7 @@ public class Estoque {
      * Retira um produto do estoque
      * <p>
      *
-     * @param listaRemoveProd Produto a ser removido
+     * @param prod Produto a ser removido
      *                        <p>
      * @return Retorna true se produto foi excluído ou false se não foi
      */
@@ -97,6 +98,20 @@ public class Estoque {
         return false;
     }
 
+
+    public boolean vender(Produto produto, int quantidade){
+        int index;
+        if (!estoqueVazio()) {
+            index = listaProdutos.indexOf(produto);
+            if (index != -1) {
+                valorTotalVendido += produto.vender(quantidade);
+                return true;
+
+            }
+        }
+        return false;
+    }
+
     /**
      * Compra mais unidades de um produto
      * <p>
@@ -106,12 +121,13 @@ public class Estoque {
      *                <p>
      * @return Retorna true se produto foi comprado ou false se não foi
      */
+
     public boolean reporEstoqueProduto(Produto produto, int un) {
         int index;
         if (!estoqueVazio()) {
             index = listaProdutos.indexOf(produto);
             if (index != -1) {
-                produto.comprar(un);
+                valorTotalReposicao += produto.comprar(un);
                 return true;
             }
         }
@@ -128,4 +144,26 @@ public class Estoque {
         return listaProdutos;
     }
 
+
+    /**
+     * Acessa o produto que o usuario escolheu*
+     * @return Retorna um produto
+     */
+    public Produto acessaProduto(int ID){
+        for (Produto p : produtosEstoque()) {
+            if(ID == p.getID()){
+                return p;
+            }
+        }
+        return null;
+    }
+
+
+    public double getValorTotalVendido() {
+        return valorTotalVendido;
+    }
+
+    public double getValorTotalReposicao() {
+        return valorTotalReposicao;
+    }
 }

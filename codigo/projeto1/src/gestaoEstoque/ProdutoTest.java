@@ -45,7 +45,7 @@ public class ProdutoTest {
 
     @Test
     public void deveVerificarCompra() {
-        assertEquals(9, produto.comprar(5));
+        assertEquals(50, produto.comprar(5));
     }
 
     @Test

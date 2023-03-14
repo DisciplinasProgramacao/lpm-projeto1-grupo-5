@@ -121,4 +121,9 @@ class EstoqueTest {
         assertEquals(listaProdTeste.size(), meuEstoque.produtosEstoque().size());
     }
 
+    @Test
+    void deveAcessarProduto(){
+        assertEquals(produtoTeste, meuEstoque.acessaProduto(2));
+    }
+
 }
