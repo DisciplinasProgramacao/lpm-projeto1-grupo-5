@@ -22,3 +22,5 @@
   - reporEstoqueProdutoInexistente
 11. Verifica se o tamanho da lista retornada é o mesmo da lista criada
   - confereListaEstoque
+12. Retorna um produto escolhido por ID pelo usuário
+  - acessaProduto
