@@ -102,6 +102,15 @@ class EstoqueTest {
     }
 
     @Test
+    void naoReporEstoqueNegativo() {        //adicionado por João (falha)
+        produtoTeste = new Produto("Produto 3 - teste Estoque", 10, 0, 2);
+        meuEstoque.addProdutoNoEstoque(produtoTeste);
+
+        assertTrue(meuEstoque.reporEstoqueProduto(produtoTeste, -5));
+        assertEquals(0, produtoTeste.getQuantidadeAtual());
+    }
+
+    @Test
     void reporEstoqueProdutoInexistente() {
         produtoTeste = new Produto("Produto 3 - teste Estoque", 10, 0, 2);
 

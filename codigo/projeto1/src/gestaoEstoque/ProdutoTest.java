@@ -38,6 +38,12 @@ public class ProdutoTest {
     }
 
     @Test
+    public void naoPodeVenderNegativo() { //adicionado por Joao (falha)
+        produto.vender(-1);
+        assertEquals(4,produto.getQuantidadeAtual());
+    }
+
+    @Test
     public void deveVerificarVenda() {
         assertEquals(54.87, produto.vender(3));
         assertEquals(1, produto.getQuantidadeAtual());
@@ -46,6 +52,11 @@ public class ProdutoTest {
     @Test
     public void deveVerificarCompra() {
         assertEquals(50, produto.comprar(5));
+        
+    }
+
+    @Test public void naoPodeComprarNegativo(){     //adicionado por Joao (falha)
+        assertEquals(0, produto.comprar(-5));
     }
 
     @Test
